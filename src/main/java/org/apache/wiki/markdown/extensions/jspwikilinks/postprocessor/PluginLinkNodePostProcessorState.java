@@ -27,9 +27,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wiki.api.core.Context;
 import org.apache.wiki.api.exceptions.PluginException;
+import org.apache.wiki.i18n.InternationalizationManager;
 import org.apache.wiki.markdown.nodes.JSPWikiLink;
 import org.apache.wiki.parser.PluginContent;
-import org.apache.wiki.plugin.PluginCoreResources;
 import org.apache.wiki.preferences.Preferences;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
@@ -77,7 +77,7 @@ public class PluginLinkNodePostProcessorState implements NodePostProcessorState<
         } catch( final PluginException e ) {
             LOG.info( wikiContext.getRealPage().getWiki() + " : " + wikiContext.getRealPage().getName() + " - Failed to insert plugin: " + e.getMessage() );
             if( !m_wysiwygEditorMode ) {
-                final ResourceBundle rbPlugin = Preferences.getBundle( wikiContext, PluginCoreResources.CORE_PLUGINS_RESOURCEBUNDLE );
+                final ResourceBundle rbPlugin = Preferences.getBundle( wikiContext, InternationalizationManager.CORE_PLUGINS_RESOURCEBUNDLE );
                 NodePostProcessorStateCommonOperations.makeError( state, link, MessageFormat.format( rbPlugin.getString( "plugin.error.insertionfailed" ),
                                                                                                                          wikiContext.getRealPage().getWiki(),
                                                                                                                          wikiContext.getRealPage().getName(),
@@ -108,7 +108,7 @@ public class PluginLinkNodePostProcessorState implements NodePostProcessorState<
 
     void handleTableOfContentsPlugin(final NodeTracker state, final JSPWikiLink link) {
         if( !m_wysiwygEditorMode ) {
-            final ResourceBundle rb = Preferences.getBundle( wikiContext, PluginCoreResources.CORE_PLUGINS_RESOURCEBUNDLE );
+            final ResourceBundle rb = Preferences.getBundle( wikiContext, InternationalizationManager.CORE_PLUGINS_RESOURCEBUNDLE );
             final HtmlInline divToc = new HtmlInline( CharSubSequence.of( "<div class=\"toc\">\n" ) );
             final HtmlInline divCollapseBox = new HtmlInline( CharSubSequence.of( "<div class=\"collapsebox\">\n" ) );
             final HtmlInline divsClosing = new HtmlInline( CharSubSequence.of( "</div>\n</div>\n" ) );
